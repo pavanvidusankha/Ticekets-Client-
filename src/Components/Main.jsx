@@ -6,12 +6,12 @@ const Ticket=props=>(
       <tr>
         <td>{props.ticket.ticket_name}</td>
         <td>{props.ticket.ticket_description}</td>
-        <td>{props.ticket.ticket_count}</td>
+        <td>{props.ticket.ticket_price}</td>
         <td>
             <button vtype="button" class="btn btn-primary float-right" align='right'><Link  to={"/Mbuy/"+props.ticket._id} style={{textDecoration:'none'}}><a style={{color:'white'}}>Book by Mobile</a></Link></button>
         
         
-            <button vtype="button" class="btn btn-success mx-2 float-right"><Link  to={"/Mbuy/"+props.ticket._id} style={{textDecoration:'none'}}><a style={{color:'white'}}>Book by Credit Card</a></Link></button>
+            <button vtype="button" class="btn btn-success mx-2 float-right"><Link  to={"/Cbuy/"+props.ticket._id} style={{textDecoration:'none'}}><a style={{color:'white'}}>Book by Credit Card</a></Link></button>
             </td>
 
     </tr>
@@ -25,6 +25,8 @@ export default class  Main extends Component {
     }
 
     componentDidMount(){
+
+        document.title="E-Tickets";
         axios.get('http://localhost:4000/ticket/')
         .then(response =>{
             this.setState({tickets:response.data});
@@ -47,6 +49,8 @@ export default class  Main extends Component {
                 console.log(error); 
             })
         }
+
+        //get all tickets using GET method
         ListTickets(){
             return this.state.tickets.map(function(temp,i){
                 return <Ticket ticket={temp} key={i} />;
@@ -63,7 +67,7 @@ export default class  Main extends Component {
                     <tr>
                         <th>Train</th>
                         <th>Description</th>
-                        <th>Train</th>
+                        <th>Train Ticket Rs.</th>
                         <th><p align='center'>Actions</p></th>
                     </tr>
                 </thead>
